@@ -4,28 +4,29 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sistem Informasi Manajemen Pengelolaan Obat (SIMPO Web)</title>
-    <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Supabase Client -->
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <style>
-        /* Custom styles to match the classic desktop form look with modern sharpness */
-        .bg-simpo-header { background-color: #7c1dd4; } /* Maroon/Pinkish red accent from SIMPO */
-        .border-simpo { border-color: #cbd5e1; }
-        .bg-simpo-gray { background-color: #e2e8f0; }
+        /* Mengunci warna batas tabel dan baris zebra berdasarkan spesifikasi Anda */
+        .border-simpo-table { border-color: #CDCDCD; }
+        
+        /* Baris tabel otomatis berselang-seling (Zebra) */
+        #cartTableBody tr:nth-child(odd) { background-color: #FFFFFF; }
+        #cartTableBody tr:nth-child(even) { background-color: #F2F2F2; }
+
+        /* Gaya interaktif ketika elemen input atau sel tabel mendapatkan fokus */
         input:focus, select:focus {
-            border-color: #b8294f !important;
-            box-shadow: 0 0 0 2px rgba(224, 85, 122, 0.2) !important;
+            outline: none !important;
+            border-color: #BC2651 !important;
+            box-shadow: 0 0 0 2px rgba(188, 38, 81, 0.2) !important;
         }
     </style>
 </head>
-<body class="bg-gray-300 font-sans text-xs text-gray-800 min-h-screen flex flex-col justify-between select-none">
+<body class="bg-[#E8E8E8] font-sans text-xs text-gray-800 min-h-screen flex flex-col justify-between select-none">
 
-    <!-- WINDOW CONTAINER (Meniru style window aplikasi MS Access) -->
-    <div class="w-full max-w-6xl mx-auto my-2 bg-slate-200 border-2 border-gray-400 shadow-2xl flex flex-col overflow-hidden">
+    <div class="w-full max-w-6xl mx-auto my-2 bg-[#E8E8E8] border-2 border-[#9F9F9F] shadow-2xl flex flex-col overflow-hidden">
         
-        <!-- WINDOW TITLE BAR -->
-        <div class="bg-white border-b border-gray-400 px-3 py-1 flex justify-between items-center text-gray-700 font-medium">
+        <div class="bg-white border-b border-[#CDCDCD] px-3 py-1 flex justify-between items-center text-gray-700 font-medium">
             <div class="flex items-center gap-2">
                 <span class="text-sm">📋</span>
                 <span class="font-bold tracking-tight text-gray-900">SIMPO 2026 - Input Data Barang Keluar (Pemerintah Kabupaten Cilacap)</span>
@@ -37,34 +38,30 @@
             </div>
         </div>
 
-        <!-- MAIN FORM BRANDING HEADER -->
-        <div class="bg-simpo-header text-white px-4 py-3 border-b border-red-800">
+        <div class="bg-[#9F9F9F] text-white px-4 py-3 border-b border-[#9F9F9F]">
             <div class="flex justify-between items-center">
                 <div>
                     <h1 class="text-base font-bold tracking-wide uppercase">PEMERINTAH KABUPATEN CILACAP</h1>
-                    <p class="text-[10px] text-red-100 font-light">Sistem Informasi Manajemen Pengelolaan Obat & Alat Kesehatan (SIMPO Web-v2)</p>
+                    <p class="text-[10px] text-gray-100 font-light">Sistem Informasi Manajemen Pengelolaan Obat & Alat Kesehatan (SIMPO Web-v2)</p>
                 </div>
                 <div class="text-right">
-                    <span class="bg-red-900/50 border border-red-700 px-2 py-1 rounded text-[10px] font-mono">DATABASE MODE: CLOUD SUPABASE</span>
+                    <span class="bg-black/20 border border-white/20 px-2 py-1 rounded text-[10px] font-mono">DATABASE MODE: CLOUD SUPABASE</span>
                 </div>
             </div>
         </div>
 
-        <!-- FORM CONTENT -->
         <div class="p-3 space-y-3">
             
-            <!-- SECTION 1: METADATA TRANSAKSI (BAGIAN ATAS FORM) -->
-            <div class="bg-gray-100 border border-gray-400 p-3 rounded shadow-sm grid grid-cols-1 md:grid-cols-2 gap-x-6 gap-y-2">
+            <div class="bg-white border border-[#CDCDCD] p-3 rounded shadow-sm grid grid-cols-1 md:grid-cols-2 gap-x-6 gap-y-2">
                 
-                <!-- Kiri: Tanggal, Penerima, Jenis -->
                 <div class="space-y-1.5">
                     <div class="flex items-center">
                         <label class="w-24 font-semibold text-gray-700">Tanggal</label>
-                        <input type="date" id="txtTanggal" class="flex-1 px-2 py-1 border border-gray-400 bg-white rounded text-xs" required>
+                        <input type="date" id="txtTanggal" class="flex-1 px-2 py-1 border border-[#CDCDCD] bg-white rounded text-xs" required>
                     </div>
                     <div class="flex items-center">
                         <label class="w-24 font-semibold text-gray-700">Penerima</label>
-                        <select id="ddlPenerima" class="flex-1 px-2 py-1 border border-gray-400 bg-white rounded text-xs font-medium" required>
+                        <select id="ddlPenerima" class="flex-1 px-2 py-1 border border-[#CDCDCD] bg-[#FFFFFF] rounded text-xs font-medium shadow-inner" required>
                             <option value="">-- Pilih Instansi / Unit Kerja Penerima --</option>
                             <option value="Puskesmas Cilacap Selatan">Puskesmas Cilacap Selatan</option>
                             <option value="Puskesmas Cilacap Tengah">Puskesmas Cilacap Tengah</option>
@@ -81,7 +78,7 @@
                     </div>
                     <div class="flex items-center">
                         <label class="w-24 font-semibold text-gray-700">Jenis Transaksi</label>
-                        <select id="ddlJenis" class="flex-1 px-2 py-1 border border-gray-400 bg-white rounded text-xs" required>
+                        <select id="ddlJenis" class="flex-1 px-2 py-1 border border-[#CDCDCD] bg-white rounded text-xs" required>
                             <option value="Distribusi Rutin">Distribusi Rutin</option>
                             <option value="Ampalan Darurat">Ampalan Darurat</option>
                             <option value="Program Kesehatan">Program Kesehatan</option>
@@ -90,26 +87,25 @@
                     </div>
                 </div>
 
-                <!-- Kanan: No BAST, No Nota, Catatan -->
                 <div class="space-y-1.5">
                     <div class="flex items-center">
                         <label class="w-24 font-semibold text-gray-700 pl-0 md:pl-4">No. BAST</label>
-                        <input type="text" id="txtNoBast" placeholder="Ketik nomor berita acara..." class="flex-1 px-2 py-1 border border-gray-400 bg-white rounded text-xs uppercase">
+                        <input type="text" id="txtNoBast" placeholder="Ketik nomor berita acara..." class="flex-1 px-2 py-1 border border-[#CDCDCD] bg-white rounded text-xs uppercase">
                     </div>
                     <div class="flex items-center">
                         <label class="w-24 font-semibold text-gray-700 pl-0 md:pl-4">No. Nota</label>
-                        <input type="text" id="txtNoNota" placeholder="Ketik nomor nota pengeluaran..." class="flex-1 px-2 py-1 border border-gray-400 bg-white rounded text-xs uppercase">
+                        <input type="text" id="txtNoNota" placeholder="Ketik nomor nota pengeluaran..." class="flex-1 px-2 py-1 border border-[#CDCDCD] bg-white rounded text-xs uppercase">
                     </div>
-                    <div class="flex items-center">
+                    <div class="flex items-center gap-2">
                         <label class="w-24 font-semibold text-gray-700 pl-0 md:pl-4">Keterangan</label>
-                        <input type="text" id="txtKeteranganGeneral" placeholder="Misal: APBD 2026 / Droping Provinsi" class="flex-1 px-2 py-1 border border-gray-400 bg-white rounded text-xs">
+                        <input type="text" id="txtKeteranganGeneral" placeholder="Misal: APBD 2026 / Droping Provinsi" class="flex-1 px-2 py-1 border border-[#CDCDCD] bg-white rounded text-xs">
+                        <button type="button" onclick="alert('Mencari berkas transaksi...')" class="bg-[#A6A6A6] text-white px-3 py-1 font-bold rounded border border-gray-400 shadow-sm transition hover:opacity-90">Cari</button>
                     </div>
                 </div>
             </div>
 
-            <!-- SECTION 2: ROW INPUT BARANG CEPAT (QUICK BARIS) -->
-            <div class="bg-slate-100 border border-gray-400 p-2 rounded shadow-sm">
-                <div class="bg-gray-200 text-gray-700 font-bold px-2 py-1 border-b border-gray-300 mb-2 flex justify-between items-center rounded-t">
+            <div class="bg-white border border-[#CDCDCD] p-2 rounded shadow-sm">
+                <div class="bg-[#DFE3E8] text-gray-900 font-bold px-2 py-1 border-b border-[#CDCDCD] mb-2 flex justify-between items-center rounded-t">
                     <span>⚡ Baris Input Item Obat / Alkes</span>
                     <span class="text-[10px] text-gray-500 font-normal">*Isi item lalu tekan tombol IN untuk masuk ke keranjang sementara</span>
                 </div>
@@ -117,87 +113,83 @@
                 <form id="formItemBarang" class="grid grid-cols-2 sm:grid-cols-4 md:grid-cols-8 gap-2 items-end">
                     <div>
                         <label class="block text-[10px] font-bold text-gray-600 mb-0.5">Kode Barang</label>
-                        <input type="text" id="itemKode" placeholder="K001" required class="w-full px-2 py-1 border border-gray-400 bg-white rounded font-mono text-xs">
+                        <input type="text" id="itemKode" placeholder="K001" required class="w-full px-2 py-1 border border-[#CDCDCD] bg-[#FFFFFF] rounded font-mono text-xs">
                     </div>
                     <div class="col-span-1 sm:col-span-2">
                         <label class="block text-[10px] font-bold text-gray-600 mb-0.5">Nama Barang / Obat</label>
-                        <input type="text" id="itemNama" placeholder="Contoh: Amoxicillin 500 mg Tablet" required class="w-full px-2 py-1 border border-gray-400 bg-white rounded text-xs">
+                        <input type="text" id="itemNama" placeholder="Contoh: Amoxicillin 500 mg Tablet" required class="w-full px-2 py-1 border border-[#CDCDCD] bg-[#FFFFFF] rounded text-xs">
                     </div>
                     <div>
                         <label class="block text-[10px] font-bold text-gray-600 mb-0.5">Satuan</label>
-                        <input type="text" id="itemSatuan" placeholder="Tablet/Botol" required class="w-full px-2 py-1 border border-gray-400 bg-white rounded text-xs">
+                        <input type="text" id="itemSatuan" placeholder="Tablet/Botol" required class="w-full px-2 py-1 border border-[#CDCDCD] bg-white rounded text-xs">
                     </div>
                     <div>
                         <label class="block text-[10px] font-bold text-gray-600 mb-0.5">Harga (Rp)</label>
-                        <input type="number" id="itemHarga" placeholder="0" min="0" required class="w-full px-2 py-1 border border-gray-400 bg-white rounded text-xs text-right">
+                        <input type="number" id="itemHarga" placeholder="0" min="0" required class="w-full px-2 py-1 border border-[#CDCDCD] bg-white rounded text-xs text-right">
                     </div>
                     <div>
                         <label class="block text-[10px] font-bold text-gray-600 mb-0.5">Jumlah (Qty)</label>
-                        <input type="number" id="itemJumlah" placeholder="0" min="1" required class="w-full px-2 py-1 border border-gray-400 bg-white rounded text-xs text-center font-bold">
+                        <input type="number" id="itemJumlah" placeholder="0" min="1" required class="w-full px-2 py-1 border border-[#CDCDCD] bg-white rounded text-xs text-center font-bold">
                     </div>
                     <div>
                         <label class="block text-[10px] font-bold text-gray-600 mb-0.5">Tanggal ED</label>
-                        <input type="date" id="itemTanggalEd" class="w-full px-1 py-1 border border-gray-400 bg-white rounded text-[11px]">
+                        <input type="date" id="itemTanggalEd" class="w-full px-1 py-1 border border-[#CDCDCD] bg-white rounded text-[11px]">
                     </div>
                     <div>
-                        <button type="submit" class="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-1 px-3 border border-emerald-800 rounded shadow-sm text-center flex items-center justify-center gap-1 transition">
+                        <button type="submit" class="w-full bg-[#E37997] hover:bg-[#BC2651] text-white font-bold py-1 px-3 border border-gray-400 rounded shadow-sm text-center flex items-center justify-center gap-1 transition">
                             <span>📥</span> IN
                         </button>
                     </div>
                 </form>
             </div>
 
-            <!-- SECTION 3: GRID DATA KERANJANG (TABLE GRID) -->
-            <div class="bg-white border border-gray-400 rounded shadow-sm overflow-hidden flex flex-col">
-                <div class="bg-slate-500 text-white px-3 py-1.5 font-semibold text-xs flex justify-between items-center">
+            <div class="bg-white border border-[#CDCDCD] rounded shadow-sm overflow-hidden flex flex-col">
+                <div class="bg-[#9F9F9F] text-white px-3 py-1.5 font-semibold text-xs flex justify-between items-center border-b border-[#CDCDCD]">
                     <span>🛒 Daftar Keranjang Item Transaksi (Belum Disimpan Ke Database Cloud)</span>
-                    <span id="lblCounter" class="bg-slate-700 px-2 py-0.5 rounded font-mono text-[10px]">Jumlah barang: 0 item</span>
+                    <span id="lblCounter" class="bg-black/20 px-2 py-0.5 rounded font-mono text-[10px]">Jumlah barang: 0 item</span>
                 </div>
                 
                 <div class="overflow-x-auto max-h-56">
                     <table class="w-full text-left text-xs border-collapse">
                         <thead>
-                            <tr class="bg-slate-100 text-gray-700 font-bold border-b border-gray-400 sticky top-0 shadow-sm">
-                                <th class="py-2 px-3 border-r border-gray-300 w-12 text-center">Aksi</th>
-                                <th class="py-2 px-3 border-r border-gray-300 w-16 font-mono">Kode</th>
-                                <th class="py-2 px-3 border-r border-gray-300">Nama Barang / Obat</th>
-                                <th class="py-2 px-3 border-r border-gray-300 w-16 text-center">Satuan</th>
-                                <th class="py-2 px-3 border-r border-gray-300 w-24 text-right">Harga Satuan</th>
-                                <th class="py-2 px-3 border-r border-gray-300 w-16 text-center">Jumlah</th>
-                                <th class="py-2 px-3 border-r border-gray-300 w-20 text-center">Tanggal ED</th>
+                            <tr class="bg-[#DFE3E8] text-gray-900 font-bold border-b border-[#CDCDCD] sticky top-0 shadow-sm">
+                                <th class="py-2 px-3 border-r border-[#CDCDCD] w-12 text-center">Aksi</th>
+                                <th class="py-2 px-3 border-r border-[#CDCDCD] w-16 font-mono">Kode</th>
+                                <th class="py-2 px-3 border-r border-[#CDCDCD]">Nama Barang / Obat</th>
+                                <th class="py-2 px-3 border-r border-[#CDCDCD] w-16 text-center">Satuan</th>
+                                <th class="py-2 px-3 border-r border-[#CDCDCD] w-24 text-right">Harga Satuan</th>
+                                <th class="py-2 px-3 border-r border-[#CDCDCD] w-16 text-center">Jumlah</th>
+                                <th class="py-2 px-3 border-r border-[#CDCDCD] w-20 text-center">Tanggal ED</th>
                                 <th class="py-2 px-3 w-28 text-right">Total Nilai</th>
                             </tr>
                         </thead>
-                        <tbody id="cartTableBody" class="divide-y divide-gray-300 bg-white">
-                            <!-- Rows dynamically generated by JavaScript -->
-                            <tr id="emptyRow">
+                        <tbody id="cartTableBody" class="divide-y divide-[#CDCDCD]">
+                            <tr id="emptyRow" class="bg-white">
                                 <td colspan="8" class="py-8 text-center text-gray-400 italic bg-gray-50">Keranjang transaksi masih kosong. Masukkan item obat di atas.</td>
                             </tr>
                         </tbody>
                     </table>
                 </div>
 
-                <!-- TOTAL FOOTER SUMMARY LOOK -->
-                <div class="bg-gray-200 border-t border-gray-400 p-2 flex justify-end items-center gap-3 font-bold text-sm">
+                <div class="bg-white border-t border-[#CDCDCD] p-2 flex justify-end items-center gap-3 font-bold text-sm">
                     <span class="text-gray-600 text-xs uppercase tracking-wider">Grand Total Transaksi:</span>
-                    <div class="bg-white border border-gray-400 px-4 py-1 text-right text-red-700 font-mono w-48 text-base rounded shadow-inner" id="lblGrandTotal">
+                    <div class="bg-[#D9D9D9] border border-[#CDCDCD] px-4 py-1 text-right text-black font-mono w-48 text-base rounded shadow-inner font-bold" id="lblGrandTotal">
                         Rp 0
                     </div>
                 </div>
             </div>
 
-            <!-- SECTION 4: REALTIME HISTORY LOG DARI SUPABASE -->
-            <div class="bg-white border border-gray-400 rounded shadow-sm overflow-hidden">
-                <div class="bg-blue-950 text-white px-3 py-1 flex justify-between items-center">
+            <div class="bg-white border border-[#CDCDCD] rounded shadow-sm overflow-hidden">
+                <div class="bg-slate-600 text-white px-3 py-1 flex justify-between items-center border-b border-[#CDCDCD]">
                     <span class="font-bold flex items-center gap-1"><span>🗄️</span> 5 Transaksi Cloud Terkini (Realtime Server Monitor)</span>
-                    <button onclick="fetchHistoryLog()" class="text-[10px] bg-blue-900 hover:bg-blue-800 border border-blue-700 px-2 py-0.5 rounded transition">
+                    <button onclick="fetchHistoryLog()" class="text-[10px] bg-[#A6A6A6] hover:opacity-90 border border-gray-400 px-2 py-0.5 rounded transition">
                         🔄 Refresh Server Log
                     </button>
                 </div>
                 <div class="overflow-x-auto">
                     <table class="w-full text-left text-[11px] border-collapse">
                         <thead>
-                            <tr class="bg-gray-100 border-b border-gray-300 font-semibold text-gray-600">
+                            <tr class="bg-[#DFE3E8] border-b border-[#CDCDCD] font-semibold text-gray-700">
                                 <th class="py-1 px-3">Waktu Input (WIB)</th>
                                 <th class="py-1 px-3">No. BAST / Nota</th>
                                 <th class="py-1 px-3">Tujuan Instansi</th>
@@ -206,8 +198,8 @@
                                 <th class="py-1 px-3 text-right">Total Nilai</th>
                             </tr>
                         </thead>
-                        <tbody id="historyTableBody" class="divide-y divide-gray-200">
-                            <tr>
+                        <tbody id="historyTableBody" class="divide-y divide-[#CDCDCD]">
+                            <tr class="bg-white">
                                 <td colspan="6" class="py-3 text-center text-gray-400 italic">Menghubungkan ke server Supabase...</td>
                             </tr>
                         </tbody>
@@ -217,21 +209,18 @@
 
         </div>
 
-        <!-- BUTTON ACTION CONTROLS PANEL FOOTER -->
-        <div class="bg-gray-200 border-t border-gray-400 p-3 flex flex-wrap justify-between items-center gap-2">
-            <!-- Kiri: Tombol Bantuan/Rekap -->
+        <div class="bg-[#BC2651] border-t border-[#CDCDCD] p-3 flex flex-wrap justify-between items-center gap-2">
             <div class="flex gap-1.5">
-                <button onclick="alert('Fitur Rekap Laporan PDF sedang disiapkan!')" class="bg-simpo-header hover:opacity-90 text-white px-4 py-1.5 font-bold rounded border border-red-900 shadow-sm transition">
+                <button onclick="alert('Fitur Rekap Laporan PDF sedang disiapkan!')" class="bg-[#E37997] hover:bg-white hover:text-[#BC2651] text-white px-4 py-1.5 font-bold rounded border border-white/20 shadow-sm transition">
                     Rekap
                 </button>
-                <button onclick="if(confirm('Kosongkan semua isian form?')){ resetFullForm(); }" class="bg-amber-600 hover:bg-amber-700 text-white px-4 py-1.5 font-bold rounded border border-amber-800 shadow-sm transition">
+                <button onclick="if(confirm('Kosongkan semua isian form?')){ resetFullForm(); }" class="bg-[#E37997] hover:bg-white hover:text-[#BC2651] text-white px-4 py-1.5 font-bold rounded border border-white/20 shadow-sm transition">
                     Batal
                 </button>
             </div>
             
-            <!-- Kanan: Tombol Eksekusi Utama -->
             <div class="flex gap-1.5">
-                <button id="btnFinalSimpan" onclick="simpanKeranjangKeSupabase()" class="bg-emerald-600 hover:bg-emerald-700 text-white px-6 py-1.5 font-bold text-sm rounded border border-emerald-800 shadow-md flex items-center gap-1 transition">
+                <button id="btnFinalSimpan" onclick="simpanKeranjangKeSupabase()" class="bg-[#E37997] hover:bg-white hover:text-[#BC2651] text-white px-6 py-1.5 font-bold text-sm rounded border border-white/30 shadow-md flex items-center gap-1 transition">
                     💾 Simpan Semua Transaksi Ke Cloud
                 </button>
                 <button onclick="window.close(); alert('Aplikasi web tidak bisa ditutup langsung dari tab. Silakan tutup tab browser Anda.');" class="bg-gray-400 hover:bg-gray-500 text-gray-800 px-4 py-1.5 font-bold rounded border border-gray-500 shadow-sm transition">
@@ -242,19 +231,16 @@
 
     </div>
 
-    <!-- WINDOW BOTTOM STATUS BAR -->
-    <footer class="bg-gray-100 border-t border-gray-400 px-3 py-1 text-[10px] text-gray-600 flex justify-between items-center">
+    <footer class="bg-gray-100 border-t border-[#CDCDCD] px-3 py-1 text-[10px] text-gray-600 flex justify-between items-center">
         <span>Sistem Informasi Manajemen Pengelolaan Obat | SIMPO 2018 Ver. 3.1 Web Ported</span>
         <span class="font-mono bg-emerald-100 text-emerald-800 px-2 rounded-full font-bold">● Server Connected</span>
     </footer>
 
-    <!-- LOGIKA JAVASCRIPT & KONEKTIVITAS CLOUD -->
     <script>
-        // 1. CONFIGURATION SUPABASE (Kunci API Anda tetap aman terpasang)
+        // 1. CONFIGURATION SUPABASE
         const SUPABASE_URL = 'https://jctvmsrsqaahsihhrngd.supabase.co'; 
         const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImpjdHZtc3JzcWFhaHNpaGhybmdkIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzkxODYwNDQsImV4cCI6MjA5NDc2MjA0NH0.M4uhpWjOdgJoaa6dc5TtdrUA582TZhfD7j0VPuSIGxY';
 
-        // Inisialisasi client dengan global headers agar terhindar dari error API Key missing
         const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY, {
             auth: { persistSession: false },
             global: {
@@ -265,18 +251,16 @@
             }
         });
 
-        // 2. STATE VARIABEL / STORAGE KERANJANG SEMENTARA (IN-MEMORY CART)
+        // 2. STATE STORAGE KERANJANG SEMENTARA
         let keranjangItems = [];
 
-        // Set default tanggal hari ini di form input saat load
         document.getElementById('txtTanggal').valueAsDate = new Date();
 
-        // 3. FUNGSI TANGKAP BARIS INPUT ITEM (TOMBOL IN)
+        // 3. FUNGSI TANGKAP BARIS INPUT ITEM (IN)
         const formItem = document.getElementById('formItemBarang');
         formItem.addEventListener('submit', function(e) {
             e.preventDefault();
 
-            // Ambil data item dari kolom-kolom input
             const kode = document.getElementById('itemKode').value.trim();
             const nama = document.getElementById('itemNama').value.trim();
             const satuan = document.getElementById('itemSatuan').value.trim();
@@ -285,25 +269,22 @@
             const tglEd = document.getElementById('itemTanggalEd').value || '-';
             const totalNilai = harga * jumlah;
 
-            // Masukkan objek data ke array keranjang
             keranjangItems.push({ kode, nama, satuan, harga, jumlah, tglEd, totalNilai });
 
-            // Reset field baris input agar siap mengisi item berikutnya
             formItem.reset();
             document.getElementById('itemKode').focus();
 
-            // Render ulang isi tabel keranjang
             renderKeranjangTable();
         });
 
-        // 4. FUNGSI HITUNG DAN TAMPILKAN KERANJANG KE LAYAR
+        // 4. FUNGSI RENDER TABEL KERANJANG (Mendukung interaksi klik warna #FFE165 & #9DC7E8)
         function renderKeranjangTable() {
             const tbody = document.getElementById('cartTableBody');
             tbody.innerHTML = '';
 
             if (keranjangItems.length === 0) {
                 tbody.innerHTML = `
-                    <tr id="emptyRow">
+                    <tr id="emptyRow" class="bg-white">
                         <td colspan="8" class="py-8 text-center text-gray-400 italic bg-gray-50">Keranjang transaksi masih kosong. Masukkan item obat di atas.</td>
                     </tr>`;
                 document.getElementById('lblCounter').innerText = 'Jumlah barang: 0 item';
@@ -315,17 +296,29 @@
             keranjangItems.forEach((item, index) => {
                 grandTotal += item.totalNilai;
                 const tr = document.createElement('tr');
-                tr.className = "hover:bg-slate-50 border-b border-gray-200 transition text-gray-900";
+                tr.className = "border-b border-[#CDCDCD] transition text-gray-900 cursor-pointer";
+                
+                // Efek interaktif: Berubah warna ketika diblok/diklik (#9DC7E8)
+                tr.onclick = function() {
+                    // Reset baris lain
+                    document.querySelectorAll('#cartTableBody tr').forEach(r => r.classList.remove('bg-[#9DC7E8]'));
+                    this.classList.add('bg-[#9DC7E8]');
+                    
+                    // Nyalakan efek warna header aktif (#FFE165) pada judul komponen tabel
+                    const thHeader = document.querySelector('thead tr');
+                    thHeader.style.backgroundColor = '#FFE165';
+                };
+
                 tr.innerHTML = `
-                    <td class="py-1.5 px-3 border-r border-gray-300 text-center">
-                        <button onclick="hapusItemKeranjang(${index})" class="bg-red-100 text-red-700 hover:bg-red-200 font-bold px-1.5 py-0.5 rounded border border-red-300 text-[10px]">Hapus</button>
+                    <td class="py-1.5 px-3 border-r border-[#CDCDCD] text-center">
+                        <button onclick="event.stopPropagation(); hapusItemKeranjang(${index})" class="bg-red-100 text-red-700 hover:bg-red-200 font-bold px-1.5 py-0.5 rounded border border-red-300 text-[10px]">Hapus</button>
                     </td>
-                    <td class="py-1.5 px-3 border-r border-gray-300 font-mono text-gray-700">${item.kode}</td>
-                    <td class="py-1.5 px-3 border-r border-gray-300 font-medium">${item.nama}</td>
-                    <td class="py-1.5 px-3 border-r border-gray-300 text-center text-gray-600">${item.satuan}</td>
-                    <td class="py-1.5 px-3 border-r border-gray-300 text-right font-mono text-gray-600">Rp ${item.harga.toLocaleString('id-ID')}</td>
-                    <td class="py-1.5 px-3 border-r border-gray-300 text-center font-bold text-blue-800">${item.jumlah}</td>
-                    <td class="py-1.5 px-3 border-r border-gray-300 text-center text-gray-500 font-mono">${item.tglEd}</td>
+                    <td class="py-1.5 px-3 border-r border-[#CDCDCD] font-mono text-gray-700">${item.kode}</td>
+                    <td class="py-1.5 px-3 border-r border-[#CDCDCD] font-medium">${item.nama}</td>
+                    <td class="py-1.5 px-3 border-r border-[#CDCDCD] text-center text-gray-600">${item.satuan}</td>
+                    <td class="py-1.5 px-3 border-r border-[#CDCDCD] text-right font-mono text-gray-600">Rp ${item.harga.toLocaleString('id-ID')}</td>
+                    <td class="py-1.5 px-3 border-r border-[#CDCDCD] text-center font-bold text-blue-800">${item.jumlah}</td>
+                    <td class="py-1.5 px-3 border-r border-[#CDCDCD] text-center text-gray-500 font-mono">${item.tglEd}</td>
                     <td class="py-1.5 px-3 text-right font-mono font-bold text-gray-900">Rp ${item.totalNilai.toLocaleString('id-ID')}</td>
                 `;
                 tbody.appendChild(tr);
@@ -335,20 +328,20 @@
             document.getElementById('lblGrandTotal').innerText = `Rp ${grandTotal.toLocaleString('id-ID')}`;
         }
 
-        // Fungsi hapus salah satu obat di tabel keranjang
         function hapusItemKeranjang(index) {
             keranjangItems.splice(index, 1);
             renderKeranjangTable();
+            // Kembalikan header ke warna default jika keranjang berubah
+            document.querySelector('thead tr').style.backgroundColor = '#DFE3E8';
         }
 
-        // 5. FUNGSI MASSAL: KIRIM SEMUA DATA KERANJANG SEKALIGUS KE SUPABASE
+        // 5. FUNGSI MASSAL: KIRIM DATA KE SUPABASE
         async function simpanKeranjangKeSupabase() {
             if (keranjangItems.length === 0) {
                 alert('Peringatan: Tidak ada item obat di dalam keranjang transaksi untuk disimpan!');
                 return;
             }
 
-            // Ambil data metadata general atas
             const tanggal = document.getElementById('txtTanggal').value;
             const penerima = document.getElementById('ddlPenerima').value;
             const jenisTransaksi = document.getElementById('ddlJenis').value;
@@ -366,8 +359,6 @@
             btn.innerText = '⏳ Memproses & Sinkronisasi Cloud...';
             btn.disabled = true;
 
-            // Bungkus data keranjang belanja menjadi baris data yang cocok dengan database 'stok_barang' Anda
-            // Kita satukan deskripsi obat, no bast, dan nota ke dalam kolom agar kompatibel dengan tabel awal Anda
             const rowsToInsert = keranjangItems.map(item => {
                 return {
                     nama_instansi: penerima,
@@ -386,11 +377,9 @@
 
                 alert('🔥 BERHASIL! Seluruh daftar obat di keranjang telah sukses disimpan dan di-backup ke Cloud Database Supabase.');
                 
-                // Reset total transaksi setelah sukses cloud backup
                 keranjangItems = [];
                 renderKeranjangTable();
-                
-                // Refresh server monitor logs
+                document.querySelector('thead tr').style.backgroundColor = '#DFE3E8';
                 fetchHistoryLog();
 
             } catch (err) {
@@ -402,7 +391,7 @@
             }
         }
 
-        // 6. FUNGSI AMBIL LOG MONITOR SEBELUMNYA DARI SERVER REALTIME
+        // 6. FUNGSI AMBIL LOG MONITOR SEBELUMNYA
         async function fetchHistoryLog() {
             const hBody = document.getElementById('historyTableBody');
             try {
@@ -422,12 +411,10 @@
 
                 stok_barang.forEach(item => {
                     const tglInput = new Date(item.created_at).toLocaleString('id-ID', { timeZone: 'Asia/Jakarta' });
-                    
-                    // Ekstrak info BAST dan Nota sederhana dari string keterangan jika memungkinkan
                     let displayKet = item.keterangan || '-';
                     
                     const tr = document.createElement('tr');
-                    tr.className = "hover:bg-slate-50 transition border-b border-gray-100 text-gray-800";
+                    tr.className = "transition border-b border-[#CDCDCD] text-gray-800 bg-white";
                     tr.innerHTML = `
                         <td class="py-1 px-3 text-gray-500 font-mono">${tglInput}</td>
                         <td class="py-1 px-3 font-medium text-gray-700 truncate max-w-[150px]" title="${displayKet}">${displayKet.split(' | ')[0] || displayKet}</td>
@@ -445,7 +432,6 @@
             }
         }
 
-        // Meriset form total secara bersih
         function resetFullForm() {
             document.getElementById('txtNoBast').value = '';
             document.getElementById('txtNoNota').value = '';
@@ -453,9 +439,9 @@
             document.getElementById('ddlPenerima').value = '';
             keranjangItems = [];
             renderKeranjangTable();
+            document.querySelector('thead tr').style.backgroundColor = '#DFE3E8';
         }
 
-        // Pemuatan pertama kali
         window.onload = function() {
             fetchHistoryLog();
         };
