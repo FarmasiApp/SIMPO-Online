@@ -3,134 +3,192 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Portal Berita Latihan - Cloudflare Pages</title>
-    <!-- Menggunakan Tailwind CSS untuk Desain Instan & Modern -->
+    <title>Sistem Inventory Multi-Instansi</title>
+    <!-- Tailwind CSS untuk Desain -->
     <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Script Resmi Supabase Client via CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 </head>
-<body class="bg-gray-50 text-gray-800 font-sans">
+<body class="bg-gray-100 font-sans text-gray-800">
 
-    <!-- 1. HEADER / NAVIGASI BAR -->
-    <header class="bg-blue-900 text-white shadow-md sticky top-0 z-50">
-        <div class="container mx-auto px-4 py-3 flex justify-between items-center">
-            <div class="flex items-center space-x-3">
-                <!-- Anda bisa mengganti teks ini atau menambah logo Pemkab nanti -->
-                <span class="text-xl font-bold tracking-wider">BERITA REGIONAL - SIMPO 2026 ONLINE</span>
-            </div>
-            <nav class="hidden md:flex space-x-6 text-sm font-medium">
-                <a href="#" class="hover:text-blue-300 transition">Beranda</a>
-                <a href="#" class="hover:text-blue-300 transition">Kesehatan</a>
-                <a href="#" class="hover:text-blue-300 transition">Teknologi</a>
-                <a href="#" class="hover:text-blue-300 transition">Pengumuman</a>
-            </nav>
-            <div class="text-xs bg-blue-800 px-3 py-1.5 rounded-full border border-blue-700">
-                Uji Coba Sistem
-            </div>
+    <!-- HEADER -->
+    <header class="bg-blue-900 text-white shadow-md">
+        <div class="container mx-auto px-4 py-4 flex justify-between items-center">
+            <h1 class="text-xl font-bold tracking-wide">📦 SISTEM INVENTORY INTEGRASI</h1>
+            <span class="bg-blue-800 px-3 py-1 rounded-full text-xs border border-blue-700">Live Database</span>
         </div>
     </header>
 
-    <!-- 2. KONTEN UTAMA (STYLE BERITA) -->
-    <main class="container mx-auto px-4 py-8 max-w-6xl">
+    <!-- MAIN KONTEN -->
+    <main class="container mx-auto px-4 py-8 max-w-4xl space-y-8">
         
-        <!-- Grid Layout: 2 Kolom (Konten Utama & Sidebar) -->
-        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+        <!-- 1. KARTU FORM INPUT -->
+        <section class="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
+            <h2 class="text-lg font-bold text-gray-900 border-b pb-3 mb-4 flex items-center gap-2">
+                <span>📝</span> Input Transaksi Barang Baru
+            </h2>
             
-            <!-- KOLOM KIRI: ARTIKEL UTAMA (Makan 2 Slot Grid) -->
-            <div class="lg:col-span-2 space-y-8">
-                
-                <!-- Artikel Berita 1 -->
-                <article class="bg-white rounded-lg shadow-sm overflow-hidden border border-gray-100">
-                    <div class="p-6">
-                        <div class="flex items-center space-x-2 text-xs text-blue-600 font-semibold uppercase mb-3">
-                            <span>Kategori Kesehatan</span>
-                            <span>•</span>
-                            <span class="text-gray-500 font-normal">19 Mei 2026</span>
-                        </div>
-                        <h1 class="text-2xl md:text-3xl font-bold text-gray-900 hover:text-blue-900 transition mb-4">
-                            Uji Coba Sistem Cloudflare Pages Berhasil Dijalankan Tanpa Kendala
-                        </h1>
-                        <p class="text-gray-600 leading-relaxed mb-4">
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
-                        </p>
-                        <p class="text-gray-600 leading-relaxed">
-                            Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Masing-masing instansi diharapkan dapat beradaptasi dengan sistem distribusi berbasis cloud ini di masa mendatang.
-                        </p>
+            <form id="formInventory" class="space-y-4">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <!-- Input Nama Instansi -->
+                    <div>
+                        <label class="block text-xs font-semibold text-gray-600 uppercase mb-1">Nama Instansi / Unit Kerja</label>
+                        <input type="text" id="namaInstansi" required placeholder="Misal: Puskesmas Cilacap Selatan" 
+                            class="w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm">
                     </div>
-                </article>
-
-                <!-- Artikel Berita 2 -->
-                <article class="bg-white rounded-lg shadow-sm overflow-hidden border border-gray-100">
-                    <div class="p-6">
-                        <div class="flex items-center space-x-2 text-xs text-green-600 font-semibold uppercase mb-3">
-                            <span>Pengumuman Internal</span>
-                            <span>•</span>
-                            <span class="text-gray-500 font-normal">18 Mei 2026</span>
-                        </div>
-                        <h2 class="text-xl md:text-2xl font-bold text-gray-900 hover:text-green-900 transition mb-3">
-                            Langkah Strategis Optimalisasi Data Transaksi Puluhan Ribu Baris
-                        </h2>
-                        <p class="text-gray-600 leading-relaxed">
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident.
-                        </p>
+                    <!-- Input Nama Barang -->
+                    <div>
+                        <label class="block text-xs font-semibold text-gray-600 uppercase mb-1">Nama Barang</label>
+                        <input type="text" id="namaBarang" required placeholder="Misal: Amoxicillin 500mg / Laptop" 
+                            class="w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm">
                     </div>
-                </article>
-
-            </div>
-
-            <!-- KOLOM KANAN: SIDEBAR (Makan 1 Slot Grid) -->
-            <div class="space-y-6">
-                
-                <!-- Widget Info Instansi -->
-                <div class="bg-white p-6 rounded-lg shadow-sm border border-gray-100">
-                    <h3 class="text-sm font-bold text-gray-900 uppercase tracking-wider border-b pb-3 mb-4">
-                        Status Server
-                    </h3>
-                    <div class="space-y-3 text-sm">
-                        <div class="flex justify-between items-center">
-                            <span class="text-gray-500">Penyedia Hosting:</span>
-                            <span class="font-semibold text-gray-700">Cloudflare Pages</span>
-                        </div>
-                        <div class="flex justify-between items-center">
-                            <span class="text-gray-500">Status Akses:</span>
-                            <span class="px-2 py-0.5 text-xs font-semibold bg-green-100 text-green-800 rounded-full">100% Online</span>
-                        </div>
-                        <div class="flex justify-between items-center">
-                            <span class="text-gray-500">Iklan/Branding:</span>
-                            <span class="font-semibold text-red-500">Tidak Ada (Bersih)</span>
-                        </div>
+                    <!-- Input Jumlah -->
+                    <div>
+                        <label class="block text-xs font-semibold text-gray-600 uppercase mb-1">Jumlah (Qty)</label>
+                        <input type="number" id="jumlahBarang" required min="1" placeholder="0" 
+                            class="w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm">
+                    </div>
+                    <!-- Input Keterangan -->
+                    <div>
+                        <label class="block text-xs font-semibold text-gray-600 uppercase mb-1">Keterangan / Catatan</label>
+                        <input type="text" id="keteranganBarang" placeholder="Misal: Sumber Dana APBD 2026" 
+                            class="w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm">
                     </div>
                 </div>
+                
+                <button type="submit" id="btnSimpan"
+                    class="w-full bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 rounded-md transition text-sm shadow-sm flex justify-center items-center gap-2">
+                    <span>💾</span> Simpan Data Ke Cloud
+                </button>
+            </form>
+        </section>
 
-                <!-- Widget Berita Populer -->
-                <div class="bg-white p-6 rounded-lg shadow-sm border border-gray-100">
-                    <h3 class="text-sm font-bold text-gray-900 uppercase tracking-wider border-b pb-3 mb-4">
-                        Berita Terpopuler
-                    </h3>
-                    <ul class="space-y-4">
-                        <li>
-                            <a href="#" class="text-sm font-medium text-gray-800 hover:text-blue-600 transition block line-clamp-2">
-                                1. Implementasi sistem aplikasi nirkode pada instansi pemerintah daerah.
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#" class="text-sm font-medium text-gray-800 hover:text-blue-600 transition block line-clamp-2">
-                                2. Tutorial migrasi database MySQL lokal ke arsitektur PostgreSQL Cloud terenkripsi.
-                            </a>
-                        </li>
-                    </ul>
-                </div>
-
+        <!-- 2. KARTU TABEL MONITORING -->
+        <section class="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
+            <div class="flex justify-between items-center border-b pb-3 mb-4">
+                <h2 class="text-lg font-bold text-gray-900 flex items-center gap-2">
+                    <span>📊</span> Data Inventaris Terkini (Realtime)
+                </h2>
+                <button onclick="ambilData DariSupabase()" class="text-xs text-blue-600 hover:underline font-medium">
+                    🔄 Segarkan Tabel
+                </button>
             </div>
 
-        </div>
+            <!-- Kontainer Tabel Responsif -->
+            <div class="overflow-x-auto">
+                <table class="w-full text-left text-sm border-collapse">
+                    <thead>
+                        <tr class="bg-gray-50 text-gray-600 uppercase text-xs tracking-wider border-b">
+                            <th class="py-3 px-4">Instansi</th>
+                            <th class="py-3 px-4">Nama Barang</th>
+                            <th class="py-3 px-4 text-center">Jumlah</th>
+                            <th class="py-3 px-4">Keterangan</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tabelBody" class="divide-y text-gray-700">
+                        <!-- Data dari Supabase akan disuntikkan otomatis di sini lewat JavaScript -->
+                        <tr>
+                            <td colspan="4" class="py-4 text-center text-gray-400 italic">Memuat data dari server...</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
     </main>
 
-    <!-- 3. FOOTER -->
-    <footer class="bg-gray-900 text-gray-400 text-sm py-6 mt-12 border-t border-gray-800">
-        <div class="container mx-auto px-4 text-center">
-            <p>© 2026 Portal Latihan Mandiri. Hak Cipta Dilindungi.</p>
-            <p class="text-xs text-gray-600 mt-1">Halaman ini dimuat secara instan melalui jaringan CDN Cloudflare.</p>
-        </div>
-    </footer>
+    <!-- LOGIKA JAVASCRIPT KONEKSI SUPABASE -->
+    <script>
+        // CONFIGURATION: Ganti dengan kredensial dari dashboard Supabase Anda
+        const SUPABASE_URL = 'https://jctvmsrsqaahsihhrngd.supabase.co/rest/v1/'; 
+        const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImpjdHZtc3JzcWFhaHNpaGhybmdkIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzkxODYwNDQsImV4cCI6MjA5NDc2MjA0NH0.M4uhpWjOdgJoaa6dc5TtdrUA582TZhfD7j0VPuSIGxY';
 
+        // Inisialisasi library Supabase Client
+        const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+        // Ambil elemen HTML yang dibutuhkan
+        const form = document.getElementById('formInventory');
+        const tabelBody = document.getElementById('tabelBody');
+        const btnSimpan = document.getElementById('btnSimpan');
+
+        // FUNGSI 1: Ambil data dari Supabase lalu tampilkan di tabel HTML
+        async function ambilDataDariSupabase() {
+            try {
+                // Mengambil data dari tabel bernama 'stok_barang' diurutkan berdasarkan waktu terbaru
+                let { data: stok_barang, error } = await supabaseClient
+                    .from('stok_barang')
+                    .select('*')
+                    .order('created_at', { ascending: false });
+
+                if (error) throw error;
+
+                // Kosongkan isi tabel saat ini
+                tabelBody.innerHTML = '';
+
+                if (stok_barang.length === 0) {
+                    tabelBody.innerHTML = `<tr><td colspan="4" class="py-4 text-center text-gray-400 italic">Belum ada data barang tersimpan.</td></tr>`;
+                    return;
+                }
+
+                // Masukkan data baris demi baris ke dalam tabel HTML
+                stok_barang.forEach(item => {
+                    const row = document.createElement('tr');
+                    row.className = "hover:bg-gray-50 transition";
+                    row.innerHTML = `
+                        <td class="py-3 px-4 font-medium text-gray-900">${item.nama_instansi}</td>
+                        <td class="py-3 px-4">${item.nama_barang}</td>
+                        <td class="py-3 px-4 text-center font-bold text-blue-600">${item.jumlah}</td>
+                        <td class="py-3 px-4 text-gray-500">${item.keterangan || '-'}</td>
+                    `;
+                    tabelBody.appendChild(row);
+                });
+
+            } catch (err) {
+                console.error(err);
+                tabelBody.innerHTML = `<tr><td colspan="4" class="py-4 text-center text-red-500 font-semibold">Gagal mengambil data: ${err.message}</td></tr>`;
+            }
+        }
+
+        // FUNGSI 2: Tangkap event tombol simpan ditekan untuk kirim data ke Supabase
+        form.addEventListener('submit', async (e) => {
+            e.preventDefault(); // Mencegah halaman reload otomatis saat form dikirim
+            
+            // Ubah tombol jadi status loading
+            btnSimpan.innerText = '⏳ Sedang Menyimpan...';
+            btnSimpan.disabled = true;
+
+            // Tampung nilai dari inputan form
+            const nama_instansi = document.getElementById('namaInstansi').value;
+            const nama_barang = document.getElementById('namaBarang').value;
+            const jumlah = parseInt(document.getElementById('jumlahBarang').value);
+            const keterangan = document.getElementById('keteranganBarang').value;
+
+            try {
+                // Menyisipkan (Insert) data ke tabel 'stok_barang' di Supabase
+                const { error } = await supabaseClient
+                    .from('stok_barang')
+                    .insert([{ nama_instansi, nama_barang, jumlah, keterangan }]);
+
+                if (error) throw error;
+
+                // Jika sukses, bersihkan kolom form
+                form.reset();
+                alert('Sukses! Data inventaris berhasil disimpan di Cloud Supabase.');
+                
+                // Perbarui tampilan tabel agar data baru langsung muncul
+                ambilDataDariSupabase();
+
+            } catch (err) {
+                console.error(err);
+                alert('Gagal menyimpan data: ' + err.message);
+            } finally {
+                // Kembalikan status tombol seperti semula
+                btnSimpan.innerHTML = '<span>💾</span> Simpan Data Ke Cloud';
+                btnSimpan.disabled = false;
+            }
+        });
+
+        // Jalankan fungsi ambil data secara otomatis saat halaman web pertama kali dibuka
+        window.onload = ambilDataDariSupabase;
+    </script>
 </body>
 </html>
