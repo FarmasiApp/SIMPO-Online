@@ -97,31 +97,35 @@
     </main>
 
     <!-- LOGIKA JAVASCRIPT KONEKSI SUPABASE -->
+<!-- LOGIKA JAVASCRIPT KONEKSI SUPABASE (VERSI PERBAIKAN KUNCI API) -->
     <script>
-        // CONFIGURATION: Ganti dengan kredensial dari dashboard Supabase Anda
         const SUPABASE_URL = 'https://jctvmsrsqaahsihhrngd.supabase.co'; 
         const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImpjdHZtc3JzcWFhaHNpaGhybmdkIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzkxODYwNDQsImV4cCI6MjA5NDc2MjA0NH0.M4uhpWjOdgJoaa6dc5TtdrUA582TZhfD7j0VPuSIGxY';
 
-        // Inisialisasi library Supabase Client
-        const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+        // Perbaikan Inisialisasi: Memaksa opsi global headers agar API Key tidak pernah tertinggal
+        const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY, {
+            auth: { persistSession: false },
+            global: {
+                headers: {
+                    'apikey': SUPABASE_ANON_KEY,
+                    'Authorization': `Bearer ${SUPABASE_ANON_KEY}`
+                }
+            }
+        });
 
-        // Ambil elemen HTML yang dibutuhkan
         const form = document.getElementById('formInventory');
         const tabelBody = document.getElementById('tabelBody');
         const btnSimpan = document.getElementById('btnSimpan');
 
-        // FUNGSI 1: Ambil data dari Supabase lalu tampilkan di tabel HTML
+        // FUNGSI 1: AMBIL DATA
         async function ambilDataDariSupabase() {
             try {
-                // Mengambil data dari tabel bernama 'stok_barang' diurutkan berdasarkan waktu terbaru
                 let { data: stok_barang, error } = await supabaseClient
                     .from('stok_barang')
                     .select('*')
                     .order('created_at', { ascending: false });
 
                 if (error) throw error;
-
-                // Kosongkan isi tabel saat ini
                 tabelBody.innerHTML = '';
 
                 if (stok_barang.length === 0) {
@@ -129,7 +133,6 @@
                     return;
                 }
 
-                // Masukkan data baris demi baris ke dalam tabel HTML
                 stok_barang.forEach(item => {
                     const row = document.createElement('tr');
                     row.className = "hover:bg-gray-50 transition";
@@ -141,53 +144,43 @@
                     `;
                     tabelBody.appendChild(row);
                 });
-
             } catch (err) {
                 console.error(err);
                 tabelBody.innerHTML = `<tr><td colspan="4" class="py-4 text-center text-red-500 font-semibold">Gagal mengambil data: ${err.message}</td></tr>`;
             }
         }
 
-        // FUNGSI 2: Tangkap event tombol simpan ditekan untuk kirim data ke Supabase
+        // FUNGSI 2: SIMPAN DATA
         form.addEventListener('submit', async (e) => {
-            e.preventDefault(); // Mencegah halaman reload otomatis saat form dikirim
-            
-            // Ubah tombol jadi status loading
+            e.preventDefault();
             btnSimpan.innerText = '⏳ Sedang Menyimpan...';
             btnSimpan.disabled = true;
 
-            // Tampung nilai dari inputan form
             const nama_instansi = document.getElementById('namaInstansi').value;
             const nama_barang = document.getElementById('namaBarang').value;
             const jumlah = parseInt(document.getElementById('jumlahBarang').value);
             const keterangan = document.getElementById('keteranganBarang').value;
 
             try {
-                // Menyisipkan (Insert) data ke tabel 'stok_barang' di Supabase
                 const { error } = await supabaseClient
                     .from('stok_barang')
                     .insert([{ nama_instansi, nama_barang, jumlah, keterangan }]);
 
                 if (error) throw error;
 
-                // Jika sukses, bersihkan kolom form
                 form.reset();
                 alert('Sukses! Data inventaris berhasil disimpan di Cloud Supabase.');
-                
-                // Perbarui tampilan tabel agar data baru langsung muncul
                 ambilDataDariSupabase();
 
             } catch (err) {
                 console.error(err);
                 alert('Gagal menyimpan data: ' + err.message);
             } finally {
-                // Kembalikan status tombol seperti semula
                 btnSimpan.innerHTML = '<span>💾</span> Simpan Data Ke Cloud';
                 btnSimpan.disabled = false;
             }
         });
 
-        // Jalankan fungsi ambil data secara otomatis saat halaman web pertama kali dibuka
         window.onload = ambilDataDariSupabase;
     </script>
 </body>
