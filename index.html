@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portal Berita Latihan - Cloudflare Pages</title>
+    <!-- Menggunakan Tailwind CSS untuk Desain Instan & Modern -->
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-50 text-gray-800 font-sans">
+
+    <!-- 1. HEADER / NAVIGASI BAR -->
+    <header class="bg-blue-900 text-white shadow-md sticky top-0 z-50">
+        <div class="container mx-auto px-4 py-3 flex justify-between items-center">
+            <div class="flex items-center space-x-3">
+                <!-- Anda bisa mengganti teks ini atau menambah logo Pemkab nanti -->
+                <span class="text-xl font-bold tracking-wider">BERITA REGINAL</span>
+            </div>
+            <nav class="hidden md:flex space-x-6 text-sm font-medium">
+                <a href="#" class="hover:text-blue-300 transition">Beranda</a>
+                <a href="#" class="hover:text-blue-300 transition">Kesehatan</a>
+                <a href="#" class="hover:text-blue-300 transition">Teknologi</a>
+                <a href="#" class="hover:text-blue-300 transition">Pengumuman</a>
+            </nav>
+            <div class="text-xs bg-blue-800 px-3 py-1.5 rounded-full border border-blue-700">
+                Uji Coba Sistem
+            </div>
+        </div>
+    </header>
+
+    <!-- 2. KONTEN UTAMA (STYLE BERITA) -->
+    <main class="container mx-auto px-4 py-8 max-w-6xl">
+        
+        <!-- Grid Layout: 2 Kolom (Konten Utama & Sidebar) -->
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+            
+            <!-- KOLOM KIRI: ARTIKEL UTAMA (Makan 2 Slot Grid) -->
+            <div class="lg:col-span-2 space-y-8">
+                
+                <!-- Artikel Berita 1 -->
+                <article class="bg-white rounded-lg shadow-sm overflow-hidden border border-gray-100">
+                    <div class="p-6">
+                        <div class="flex items-center space-x-2 text-xs text-blue-600 font-semibold uppercase mb-3">
+                            <span>Kategori Kesehatan</span>
+                            <span>•</span>
+                            <span class="text-gray-500 font-normal">19 Mei 2026</span>
+                        </div>
+                        <h1 class="text-2xl md:text-3xl font-bold text-gray-900 hover:text-blue-900 transition mb-4">
+                            Uji Coba Sistem Cloudflare Pages Berhasil Dijalankan Tanpa Kendala
+                        </h1>
+                        <p class="text-gray-600 leading-relaxed mb-4">
+                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+                        </p>
+                        <p class="text-gray-600 leading-relaxed">
+                            Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Masing-masing instansi diharapkan dapat beradaptasi dengan sistem distribusi berbasis cloud ini di masa mendatang.
+                        </p>
+                    </div>
+                </article>
+
+                <!-- Artikel Berita 2 -->
+                <article class="bg-white rounded-lg shadow-sm overflow-hidden border border-gray-100">
+                    <div class="p-6">
+                        <div class="flex items-center space-x-2 text-xs text-green-600 font-semibold uppercase mb-3">
+                            <span>Pengumuman Internal</span>
+                            <span>•</span>
+                            <span class="text-gray-500 font-normal">18 Mei 2026</span>
+                        </div>
+                        <h2 class="text-xl md:text-2xl font-bold text-gray-900 hover:text-green-900 transition mb-3">
+                            Langkah Strategis Optimalisasi Data Transaksi Puluhan Ribu Baris
+                        </h2>
+                        <p class="text-gray-600 leading-relaxed">
+                            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident.
+                        </p>
+                    </div>
+                </article>
+
+            </div>
+
+            <!-- KOLOM KANAN: SIDEBAR (Makan 1 Slot Grid) -->
+            <div class="space-y-6">
+                
+                <!-- Widget Info Instansi -->
+                <div class="bg-white p-6 rounded-lg shadow-sm border border-gray-100">
+                    <h3 class="text-sm font-bold text-gray-900 uppercase tracking-wider border-b pb-3 mb-4">
+                        Status Server
+                    </h3>
+                    <div class="space-y-3 text-sm">
+                        <div class="flex justify-between items-center">
+                            <span class="text-gray-500">Penyedia Hosting:</span>
+                            <span class="font-semibold text-gray-700">Cloudflare Pages</span>
+                        </div>
+                        <div class="flex justify-between items-center">
+                            <span class="text-gray-500">Status Akses:</span>
+                            <span class="px-2 py-0.5 text-xs font-semibold bg-green-100 text-green-800 rounded-full">100% Online</span>
+                        </div>
+                        <div class="flex justify-between items-center">
+                            <span class="text-gray-500">Iklan/Branding:</span>
+                            <span class="font-semibold text-red-500">Tidak Ada (Bersih)</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Widget Berita Populer -->
+                <div class="bg-white p-6 rounded-lg shadow-sm border border-gray-100">
+                    <h3 class="text-sm font-bold text-gray-900 uppercase tracking-wider border-b pb-3 mb-4">
+                        Berita Terpopuler
+                    </h3>
+                    <ul class="space-y-4">
+                        <li>
+                            <a href="#" class="text-sm font-medium text-gray-800 hover:text-blue-600 transition block line-clamp-2">
+                                1. Implementasi sistem aplikasi nirkode pada instansi pemerintah daerah.
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#" class="text-sm font-medium text-gray-800 hover:text-blue-600 transition block line-clamp-2">
+                                2. Tutorial migrasi database MySQL lokal ke arsitektur PostgreSQL Cloud terenkripsi.
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+
+            </div>
+
+        </div>
+    </main>
+
+    <!-- 3. FOOTER -->
+    <footer class="bg-gray-900 text-gray-400 text-sm py-6 mt-12 border-t border-gray-800">
+        <div class="container mx-auto px-4 text-center">
+            <p>© 2026 Portal Latihan Mandiri. Hak Cipta Dilindungi.</p>
+            <p class="text-xs text-gray-600 mt-1">Halaman ini dimuat secara instan melalui jaringan CDN Cloudflare.</p>
+        </div>
+    </footer>
+
+</body>
+</html>
