@@ -445,6 +445,37 @@
         window.onload = function() {
             fetchHistoryLog();
         };
+        // 7. FUNGSI REALTIME SUPABASE (Live Update)
+        function jalankanRealtime() {
+            console.log("Menghubungkan ke Supabase Realtime...");
+            
+            supabaseClient
+                .channel('pantau-stok-barang') // Nama channel bebas
+                .on(
+                    'postgres_changes',
+                    {
+                        event: '*', // Pantau semua kejadian: INSERT, UPDATE, DELETE
+                        schema: 'public',
+                        table: 'stok_barang' // Pastikan nama tabel sesuai dengan yang di-query
+                    },
+                    (payload) => {
+                        console.log('Realtime mendeteksi perubahan:', payload);
+                        
+                        // Ada perubahan! Langsung panggil ulang fungsi render tabel
+                        // agar layar langsung berubah tanpa di-refresh
+                        fetchHistoryLog(); 
+                    }
+                )
+                .subscribe((status) => {
+                    console.log("Status koneksi Realtime:", status);
+                });
+        }
+
+        // --- UBAH BAGIAN WINDOW.ONLOAD ANDA MENJADI SEPERTI INI ---
+        window.onload = function() {
+            fetchHistoryLog(); // Load data pertama kali
+            jalankanRealtime(); // Nyalakan radar pemantau Realtime
+        };
     </script>
 </body>
 </html>
